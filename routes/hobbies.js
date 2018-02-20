@@ -1,15 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var Hobby = require('../models').Hobby;
 
-var hobbies = [
-  { id: 1, title: 'Oceans 11' },
-  { id: 2, title: 'The Hobbit' },
-  { id: 3, title: 'Who framed Roger Rabbit' }
-]
-
-/* GET hobbies listings. */
+/* GET hobby listings. */
 router.get('/', function(req, res) {
-  res.render('hobbies', { hobbies: hobbies });
+  Hobby.all()
+    .then( function(hobbies) {
+      return res.render('hobbies', { hobbies: hobbies });
+  })
 });
 
 /* POST add hobby listing */
@@ -19,6 +17,34 @@ router.post('/', function(req, res) {
     .then( function() {
       res.redirect('/hobbies');
   });
+});
+
+//  DELETE /hobbies/7
+router.delete('/:id', function(req, res) {
+  Hobby.findById(req.params.id)
+    .then( function(hobby) {
+      hobby.destroy()
+    })
+    .then( function() {
+      return res.redirect('/hobbies');
+  });
+});
+
+router.get('/:id/edit', function(req, res) {
+  Hobby.findById(req.params.id)
+    .then( function(hobby) {
+      return res.render('edit', { hobby: hobby });
+  });
+});
+
+router.put('/:id', function(req, res) {
+  Hobby.update(
+    { title: req.body.title },
+    { where: { id: req.params.id } }
+  )
+  .then( function() {
+    return res.redirect('/hobbies');
+  })
 });
 
 module.exports = router;

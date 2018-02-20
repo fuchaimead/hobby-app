@@ -17,13 +17,12 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/hobbies', hobbies);
 app.use('/', index);
-app.use(bodyParser.json());
-app.use(methodOverride('_method'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
