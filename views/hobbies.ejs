@@ -7,11 +7,12 @@
    <header>
      <% include ./partials/navbar %>
    </header>
+   <div class="container"> 
    <h1 class='center'>My Hobbies</h1>
    <hr />
    <div class='row'>
      <div class='col s12 m4'>
-       <h3>Add Hobby</h3>
+       <h4>Add Hobby</h4>
        <form action='/hobbies' method='post'>
          <input type='text' name='title' placeholder='Title' />
          <button class='btn btn-waves' type='submit'>Add</button>
@@ -20,14 +21,13 @@
      <table class='table col m8 s12'>
        <thead>
          <th>Title</th>
-         <th>x</th>
        </thead>
        <tbody>
           <% hobbies.forEach( function(hobby) { %>
             <% var url = "/hobbies/" + hobby.id + "?_method=DELETE" %>
             <% var editUrl = "/hobbies/" + hobby.id + "/edit" %>
             <tr>
-              <td><%= hobby.title %></td>
+              <td> <%= hobby.title %> </td>
               <td>
                 <a class="btn" href=<%= editUrl %>>Edit</a>
               </td>
@@ -39,5 +39,6 @@
           <% }); %>
         </tbody>
      </table>
+    </div>
    </body>
 </html>

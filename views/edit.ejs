@@ -9,7 +9,7 @@
     <div class="container">
       <% var url = "/hobbies/" + hobby.id + "?_method=PUT" %>
       <form method="POST" action=<%= url %> >
-        <input required name="title" value=<%= hobby.title %> />
+        <input required name="title" value="<%= hobby.title %>"/>
         <a href="/hobbies" class="btn red">Cancel</a>
         <button class="btn">Save</button>
      </form>
